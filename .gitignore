@@ -75,3 +75,7 @@ MSBuildForUnity.Common.props
 # MRTK Examples
 Assets/External/MixedRealityToolkit.Examples/
 Assets/External/MixedRealityToolkit.Examples.meta
+
+# ARCore Examples
+Assets/External/GoogleARCore/Examples/
+Assets/External/GoogleARCore/Examples.meta
