@@ -54,3 +54,24 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# ============================= #
+# NuGet Build Process Generated #
+# ============================= #
+/NuGet/*
+!/NuGet/BuildSource.proj
+/MRTKBuild/
+/MSBuild/
+/PackagesCopy/
+!/scripts/Packaging/NuGetRestoreProject.csproj
+
+# ========================= #
+# MSBuildForUnity generated #
+# ========================= #
+Assets/MixedRealityToolkit.Providers/WindowsMixedReality/DotNetAdapter/Plugins*
+MSBuildForUnity.Common.props
+.obj
+
+# MRTK Examples
+Assets/External/MixedRealityToolkit.Examples/
+Assets/External/MixedRealityToolkit.Examples.meta
