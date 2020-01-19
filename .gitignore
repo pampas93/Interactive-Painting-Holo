@@ -79,3 +79,7 @@ Assets/External/MixedRealityToolkit.Examples.meta
 # ARCore Examples
 Assets/External/GoogleARCore/Examples/
 Assets/External/GoogleARCore/Examples.meta
+
+# TextMesh Pro assets
+Assets/TextMesh Pro.meta
+Assets/TextMesh Pro/
