@@ -501,7 +501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a0a9ded747cd24eb7ad64aa57a0ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineDefaultWidth: 0.005
+  EnablePainting: 1
+  brushWidth: {fileID: 6951564893827709190}
+  defaultMaterial: {fileID: 2100000, guid: 64243741b014e1f47917e0d58fdacbc5, type: 2}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1701837130
 Transform:
@@ -619,6 +621,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftHandPaintMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 8349791846866372335, guid: dfe5002b17194344e9df4fc5b1fdd991,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8349791847277306012, guid: dfe5002b17194344e9df4fc5b1fdd991,
         type: 3}
       propertyPath: m_IsActive
@@ -626,3 +633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfe5002b17194344e9df4fc5b1fdd991, type: 3}
+--- !u!114 &6951564893827709190 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7169555384538584173, guid: dfe5002b17194344e9df4fc5b1fdd991,
+    type: 3}
+  m_PrefabInstance: {fileID: 6951564893827709189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccd3b69549a5104c85d72b88af32009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

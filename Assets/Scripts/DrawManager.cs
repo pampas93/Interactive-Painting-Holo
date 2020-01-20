@@ -5,8 +5,13 @@ using Microsoft.MixedReality.Toolkit.Input;
 
 public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandler
 {
-    [SerializeField, Range(0, 0.03f)]
-    private float lineDefaultWidth = 0.005f;
+    public bool EnablePainting = true;
+
+    [SerializeField]
+    private BrushWidth brushWidth;
+
+    [SerializeField]
+    private Material defaultMaterial;
     
     [SerializeField]
     private Color defaultColor = Color.white;
@@ -27,7 +32,7 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
 
     void OnDisable()
     {
-        PointerUtils.SetGazePointerBehavior(PointerBehavior.Default);
+        // PointerUtils.SetGazePointerBehavior(PointerBehavior.Default);
         // PointerUtils.SetHandRayPointerBehavior(PointerBehavior.Default);
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityPointerHandler>(this);
     }
@@ -39,7 +44,8 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
             prevPointDistance = grabPosition;
         }
 
-        if(prevPointDistance != null && Mathf.Abs(Vector3.Distance(prevPointDistance, grabPosition)) >= minDistanceBeforeNewPoint)
+        if(prevPointDistance != null && Mathf.Abs(Vector3.Distance(prevPointDistance, 
+            grabPosition)) >= minDistanceBeforeNewPoint)
         {
             prevPointDistance = grabPosition;
             AddPoint(prevPointDistance);
@@ -53,10 +59,11 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         go.transform.parent = RoomManager.Instance.transform;
         // go.transform.position = objectToTrackMovement.transform.position;
         LineRenderer goLineRenderer = go.AddComponent<LineRenderer>();
-        goLineRenderer.startWidth = lineDefaultWidth;
-        goLineRenderer.endWidth = lineDefaultWidth;
+        goLineRenderer.startWidth = brushWidth.LineWidth;
+        goLineRenderer.endWidth = brushWidth.LineWidth;
         goLineRenderer.useWorldSpace = true;
-        goLineRenderer.material = MaterialUtils.CreateMaterial(defaultColor, $"Material_{lines.Count}");
+        goLineRenderer.material = CreateMaterialInstance(defaultColor, 
+            $"Material_{lines.Count}", defaultMaterial);
         goLineRenderer.positionCount = 1;
         goLineRenderer.numCapVertices = 90;
         goLineRenderer.SetPosition(0, grabPosition);
@@ -73,15 +80,36 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         currentLineRender.SetPosition(positionCount, position);
     }
 
+    public void UndoLine()
+    {
+        if (lines.Count > 0)
+        {
+            var toDelete = lines[lines.Count-1];
+            Destroy(toDelete.gameObject);
+            lines.RemoveAt(lines.Count-1);
+        }
+    }
+
+    private Material CreateMaterialInstance(Color color, string name, Material material)
+    {
+        Material newMat = new Material(material);
+        newMat.name = name;
+        newMat.color = color;
+        return newMat;
+    }
+
+
 #region IMixedRealityPointerHandler
     public void OnPointerDown(MixedRealityPointerEventData eventData)
     {
+        if (!EnablePainting) return;
         grabPosition = eventData.Pointer.Position;
         AddNewLineRenderer();
     }
 
     public void OnPointerDragged(MixedRealityPointerEventData eventData)
     {
+        if (!EnablePainting) return;
         grabPosition = eventData.Pointer.Position;
         UpdateLine();
     }
