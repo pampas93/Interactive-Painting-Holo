@@ -7,14 +7,16 @@ public class ColorPicker : MonoBehaviour
 {
     public Renderer QuadRenderer;
     public SliderIndicator Slider;
-    public Image PickedColor;
+    public Renderer SphereColor;
 
     Texture2D texture;
+    Material sphereMat;
 
     void Start()
     {
         texture = QuadRenderer.material.mainTexture as Texture2D;
         Slider.OnCollision += OnIndicatorChanged;
+        sphereMat = SphereColor.material;
     }
 
     void OnIndicatorChanged(Vector3 contactPoint)
@@ -26,7 +28,7 @@ public class ColorPicker : MonoBehaviour
                 return;
             var pixelUV = oHit.lightmapCoord;
             var color = texture.GetPixelBilinear(pixelUV.x, pixelUV.y);
-            PickedColor.color = color;
+            sphereMat.color = color;
         }
 
     }
