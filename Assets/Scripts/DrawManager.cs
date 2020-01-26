@@ -15,7 +15,8 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     private Material defaultMaterial;
     
     [SerializeField]
-    private Color defaultColor = Color.white;
+    private Color lineColor = Color.white;
+    private float lineWidth = 0.01f;
 
     private Vector3 prevPointDistance = Vector3.zero;
     private List<LineRenderer> lines = new List<LineRenderer>();
@@ -40,6 +41,13 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityHandJointHandler>(this);
     }
 
+    void Start()
+    {
+        HandMenu.Instance.SetupPaintEvents(
+            (color) => lineColor = color, 
+            (width) => lineWidth = width);
+    }
+
     void UpdateLine()
     {
         if(prevPointDistance == null)
@@ -62,10 +70,10 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         go.transform.parent = RoomManager.Instance.transform;
         // go.transform.position = objectToTrackMovement.transform.position;
         LineRenderer goLineRenderer = go.AddComponent<LineRenderer>();
-        goLineRenderer.startWidth = brushWidth.LineWidth;
-        goLineRenderer.endWidth = brushWidth.LineWidth;
+        goLineRenderer.startWidth = lineWidth;
+        goLineRenderer.endWidth = lineWidth;
         goLineRenderer.useWorldSpace = true;
-        goLineRenderer.material = CreateMaterialInstance(defaultColor, 
+        goLineRenderer.material = CreateMaterialInstance(lineColor, 
             $"Material_{lines.Count}", defaultMaterial);
         goLineRenderer.positionCount = 1;
         goLineRenderer.numCapVertices = 90;

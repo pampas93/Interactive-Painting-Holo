@@ -504,7 +504,7 @@ MonoBehaviour:
   EnablePainting: 1
   brushWidth: {fileID: 6951564893827709190}
   defaultMaterial: {fileID: 2100000, guid: 64243741b014e1f47917e0d58fdacbc5, type: 2}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.9882353, g: 0.56078434, b: 0.34117648, a: 1}
 --- !u!4 &1701837130
 Transform:
   m_ObjectHideFlags: 0
@@ -531,6 +531,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3234654286745001470, guid: dfe5002b17194344e9df4fc5b1fdd991,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3818284464625110859, guid: dfe5002b17194344e9df4fc5b1fdd991,
         type: 3}
       propertyPath: m_Mesh
@@ -550,6 +555,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034346247926280294, guid: dfe5002b17194344e9df4fc5b1fdd991,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6951564893827709191}
+    - target: {fileID: 6034346247926280294, guid: dfe5002b17194344e9df4fc5b1fdd991,
+        type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnColorPicker
       objectReference: {fileID: 0}
     - target: {fileID: 7175954922446065559, guid: dfe5002b17194344e9df4fc5b1fdd991,
         type: 3}
@@ -643,5 +658,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ccd3b69549a5104c85d72b88af32009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6951564893827709191 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 379464413583475216, guid: dfe5002b17194344e9df4fc5b1fdd991,
+    type: 3}
+  m_PrefabInstance: {fileID: 6951564893827709189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e6f013a6afb6146b490fc5d15ab3ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

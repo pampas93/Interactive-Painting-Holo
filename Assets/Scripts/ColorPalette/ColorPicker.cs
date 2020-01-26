@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ColorPicker : MonoBehaviour
 {
     public Renderer QuadRenderer;
     public SliderIndicator Slider;
     public Renderer SphereColor;
+
+    public event Action<Color> OnColorChange;
 
     Texture2D texture;
     Material sphereMat;
@@ -29,6 +29,7 @@ public class ColorPicker : MonoBehaviour
             var pixelUV = oHit.lightmapCoord;
             var color = texture.GetPixelBilinear(pixelUV.x, pixelUV.y);
             sphereMat.color = color;
+            OnColorChange?.Invoke(color);
         }
 
     }

@@ -41,7 +41,7 @@ Transform:
   m_GameObject: {fileID: 4793522737260226490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.786, y: 0.772, z: 0}
-  m_LocalScale: {x: 0.36143, y: 0.36143, z: 0.36143}
+  m_LocalScale: {x: 0.36143, y: 0.36143, z: 0.20352122}
   m_Children: []
   m_Father: {fileID: 4793522737501906599}
   m_RootOrder: 0
@@ -117,7 +117,6 @@ GameObject:
   - component: {fileID: 4793522737501906592}
   - component: {fileID: 4793522737501906593}
   - component: {fileID: 4793522737501906594}
-  - component: {fileID: 4793522737501906598}
   m_Layer: 0
   m_Name: ColorPalette
   m_TagString: Untagged
@@ -200,21 +199,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &4793522737501906598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4793522737501906595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db64119057ba93f4fa774ff717860eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  QuadRenderer: {fileID: 4793522737501906593}
-  Slider: {fileID: 4793522737900267467}
-  SphereColor: {fileID: 4793522737260226495}
 --- !u!1 &4793522737996829124
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4793522737996829131}
+  - component: {fileID: 8311627809458217255}
   m_Layer: 0
   m_Name: ColorPicker
   m_TagString: Untagged
@@ -248,6 +233,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8311627809458217255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793522737996829124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db64119057ba93f4fa774ff717860eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuadRenderer: {fileID: 4793522737501906593}
+  Slider: {fileID: 4793522737900267467}
+  SphereColor: {fileID: 4793522737260226495}
 --- !u!1001 &4793522737455655924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,7 +348,7 @@ PrefabInstance:
     - target: {fileID: 6247956687421035403, guid: 6433c57fa31425e45b0f8cf1d8cf327a,
         type: 3}
       propertyPath: sliderValue
-      value: 0.718
+      value: 0.7072069
       objectReference: {fileID: 0}
     - target: {fileID: 6247956687421035403, guid: 6433c57fa31425e45b0f8cf1d8cf327a,
         type: 3}
@@ -474,7 +474,7 @@ PrefabInstance:
     - target: {fileID: 6247956687421035403, guid: 6433c57fa31425e45b0f8cf1d8cf327a,
         type: 3}
       propertyPath: sliderValue
-      value: 0.745
+      value: 0.101044
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6433c57fa31425e45b0f8cf1d8cf327a, type: 3}
