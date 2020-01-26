@@ -2,8 +2,9 @@
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Input;
+using Microsoft.MixedReality.Toolkit.Utilities;
 
-public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandler
+public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandler, IMixedRealityHandJointHandler
 {
     public bool EnablePainting = true;
 
@@ -28,6 +29,7 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         PointerUtils.SetGazePointerBehavior(PointerBehavior.AlwaysOff);
         // PointerUtils.SetHandRayPointerBehavior(PointerBehavior.AlwaysOff);
         CoreServices.InputSystem?.RegisterHandler<IMixedRealityPointerHandler>(this);
+        CoreServices.InputSystem?.RegisterHandler<IMixedRealityHandJointHandler>(this);
     }
 
     void OnDisable()
@@ -35,6 +37,7 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         // PointerUtils.SetGazePointerBehavior(PointerBehavior.Default);
         // PointerUtils.SetHandRayPointerBehavior(PointerBehavior.Default);
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityPointerHandler>(this);
+        CoreServices.InputSystem?.UnregisterHandler<IMixedRealityHandJointHandler>(this);
     }
 
     void UpdateLine()
@@ -103,14 +106,14 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     public void OnPointerDown(MixedRealityPointerEventData eventData)
     {
         if (!EnablePainting) return;
-        grabPosition = eventData.Pointer.Position;
+        // grabPosition = eventData.Pointer.Position;
         AddNewLineRenderer();
     }
 
     public void OnPointerDragged(MixedRealityPointerEventData eventData)
     {
         if (!EnablePainting) return;
-        grabPosition = eventData.Pointer.Position;
+        // grabPosition = eventData.Pointer.Position;
         UpdateLine();
     }
 
@@ -121,5 +124,19 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     }
 
     public void OnPointerClicked(MixedRealityPointerEventData eventData) {}
+#endregion
+
+#region IMixedRealityHandJointHandler
+    public void OnHandJointsUpdated(InputEventData<IDictionary<TrackedHandJoint, MixedRealityPose>> eventData)
+    {
+        if (eventData.Handedness == Handedness.Right)
+        {
+            MixedRealityPose indexJointPose = eventData.InputData[TrackedHandJoint.IndexTip];
+            if (indexJointPose != null)
+            {
+                grabPosition = indexJointPose.Position;
+            }
+        }
+    }
 #endregion
 }
