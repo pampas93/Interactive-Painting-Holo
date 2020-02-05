@@ -505,6 +505,8 @@ MonoBehaviour:
   brushWidth: {fileID: 6951564893827709190}
   defaultMaterial: {fileID: 2100000, guid: 64243741b014e1f47917e0d58fdacbc5, type: 2}
   lineColor: {r: 0.9882353, g: 0.56078434, b: 0.34117648, a: 1}
+  paintBrushGO: {fileID: 3586057236872874776, guid: 53c33fd4d919f1d47a6ca2cf8a85ad29,
+    type: 3}
 --- !u!4 &1701837130
 Transform:
   m_ObjectHideFlags: 0

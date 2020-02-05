@@ -4,9 +4,19 @@ using Microsoft.MixedReality.Toolkit;
 using Microsoft.MixedReality.Toolkit.Input;
 using Microsoft.MixedReality.Toolkit.Utilities;
 
-public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandler, IMixedRealityHandJointHandler
+public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandler, 
+    IMixedRealityHandJointHandler, IMixedRealitySourceStateHandler
 {
-    public bool EnablePainting = true;
+    private bool enablePainting = true;
+    public bool EnablePainting
+    {
+        get => enablePainting;
+        set {
+            enablePainting = value;
+            if (paintBrush != null)
+                paintBrush.SetActive(value);
+        }
+    }
 
     [SerializeField]
     private BrushWidth brushWidth;
@@ -18,6 +28,10 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     private Color lineColor = Color.white;
     private float lineWidth = 0.01f;
 
+    [SerializeField]
+    private GameObject paintBrushGO;
+
+    private GameObject paintBrush;
     private Vector3 prevPointDistance = Vector3.zero;
     private List<LineRenderer> lines = new List<LineRenderer>();
     private LineRenderer currentLineRender;
@@ -29,6 +43,7 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     {
         PointerUtils.SetGazePointerBehavior(PointerBehavior.AlwaysOff);
         // PointerUtils.SetHandRayPointerBehavior(PointerBehavior.AlwaysOff);
+        CoreServices.InputSystem?.RegisterHandler<IMixedRealitySourceStateHandler>(this);
         CoreServices.InputSystem?.RegisterHandler<IMixedRealityPointerHandler>(this);
         CoreServices.InputSystem?.RegisterHandler<IMixedRealityHandJointHandler>(this);
     }
@@ -37,6 +52,7 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     {
         // PointerUtils.SetGazePointerBehavior(PointerBehavior.Default);
         // PointerUtils.SetHandRayPointerBehavior(PointerBehavior.Default);
+        CoreServices.InputSystem?.UnregisterHandler<IMixedRealitySourceStateHandler>(this);
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityPointerHandler>(this);
         CoreServices.InputSystem?.UnregisterHandler<IMixedRealityHandJointHandler>(this);
     }
@@ -46,6 +62,12 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         HandMenu.Instance.SetupPaintEvents(
             (color) => lineColor = color, 
             (width) => lineWidth = width);
+        
+        if (paintBrush == null)
+        {
+            paintBrush = Instantiate(paintBrushGO);
+            paintBrush.SetActive(false);
+        }
     }
 
     void UpdateLine()
@@ -109,7 +131,6 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
         return newMat;
     }
 
-
 #region IMixedRealityPointerHandler
     public void OnPointerDown(MixedRealityPointerEventData eventData)
     {
@@ -134,6 +155,7 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
     public void OnPointerClicked(MixedRealityPointerEventData eventData) {}
 #endregion
 
+    private bool didCalucateSize = false;
 #region IMixedRealityHandJointHandler
     public void OnHandJointsUpdated(InputEventData<IDictionary<TrackedHandJoint, MixedRealityPose>> eventData)
     {
@@ -144,6 +166,51 @@ public class DrawManager : MonoSingleton<DrawManager>, IMixedRealityPointerHandl
             {
                 grabPosition = indexJointPose.Position;
             }
+
+            // MixedRealityPose thumbTip = eventData.InputData[TrackedHandJoint.ThumbTip];
+            // MixedRealityPose wrist = eventData.InputData[TrackedHandJoint.Wrist];
+            // if (!didCalucateSize)
+            // {
+            //     var size = Vector3.Distance(wrist.Position, thumbTip.Position);
+            //     Debug.Log(size);
+            //     didCalucateSize = true;
+            // }
+        }
+    }
+#endregion
+
+#region IMixedRealitySourceStateHandler
+
+    public void OnSourceDetected(SourceStateEventData eventData)
+    {
+        var hand = eventData.Controller;
+        if (hand != null && hand.ControllerHandedness == Handedness.Right && EnablePainting)
+        {
+            if (paintBrush == null)
+            {
+                paintBrush = Instantiate(paintBrushGO);
+            }
+            
+            paintBrush.SetActive(true);
+
+            foreach (var pointer in hand.InputSource.Pointers)
+            {
+                if (pointer is PokePointer pokePointer)
+                {
+                    paintBrush.transform.SetParent(pokePointer.gameObject.transform);
+                    paintBrush.transform.localPosition = new Vector3(0, 0, 0);
+                    paintBrush.transform.localEulerAngles = new Vector3(90, 0, 0);
+                }
+            }
+        }
+    }
+
+    /// <inheritdoc />
+    public void OnSourceLost(SourceStateEventData eventData)
+    {
+        if (paintBrush != null)
+        {
+            paintBrush.SetActive(false);
         }
     }
 #endregion
