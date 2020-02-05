@@ -55,6 +55,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114269887534944512, guid: d5b94136462644c9873bb3347169ae7e,
+        type: 3}
+      propertyPath: cursorPrefab
+      value: 
+      objectReference: {fileID: 2379483797214260839, guid: c5342b8ea7a3a974e870d2974eb624e2,
+        type: 3}
     - target: {fileID: 114903794112201558, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: lineMaterial
@@ -248,22 +254,22 @@ PrefabInstance:
     - target: {fileID: 120690711267243118, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key1.a
-      value: 0.09150626
+      value: 0.05032844
       objectReference: {fileID: 0}
     - target: {fileID: 120690711267243118, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key2.a
-      value: 0.09150626
+      value: 0.05032844
       objectReference: {fileID: 0}
     - target: {fileID: 120690711267243118, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key3.a
-      value: 0.045573708
+      value: 0.02506554
       objectReference: {fileID: 0}
     - target: {fileID: 120690711267243118, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key6.a
-      value: 0.08612354
+      value: 0.04736795
       objectReference: {fileID: 0}
     - target: {fileID: 120690711267243118, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
@@ -273,22 +279,22 @@ PrefabInstance:
     - target: {fileID: 7488119136884840896, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: lineColor.key1.a
-      value: 0.09150626
+      value: 0.05032844
       objectReference: {fileID: 0}
     - target: {fileID: 7488119136884840896, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: lineColor.key2.a
-      value: 0.09150626
+      value: 0.05032844
       objectReference: {fileID: 0}
     - target: {fileID: 7488119136884840896, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: lineColor.key3.a
-      value: 0.045573708
+      value: 0.02506554
       objectReference: {fileID: 0}
     - target: {fileID: 7488119136884840896, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
       propertyPath: lineColor.key6.a
-      value: 0.08612354
+      value: 0.04736795
       objectReference: {fileID: 0}
     - target: {fileID: 7488119136884840896, guid: d5b94136462644c9873bb3347169ae7e,
         type: 3}
